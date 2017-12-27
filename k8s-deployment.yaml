@@ -1,0 +1,35 @@
+# kubectl create namespace lab
+# kubectl create -f k8s-deployment.yaml -n lab
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: lab-deployment
+  labels:
+    app: lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lab
+  template:
+    metadata:
+      labels:
+        app: lab
+    spec:
+      securityContext:
+        runAsUser: 1111
+        fsGroup: 2111
+        seLinuxOptions:
+          level: "s0:c123,c456"
+      containers:
+      - name: lab
+        image: 192.168.56.1:5000/barkbay/lab:v0
+        securityContext:
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: 8888
+        resources:
+          requests:
+            memory: "16Mi"
+          limits:
+            memory: "16Mi"

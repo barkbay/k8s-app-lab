@@ -1,0 +1,13 @@
+# $ kubectl create -f leak-svc.yaml -n leak
+# service "leak-service" created
+kind: Service
+apiVersion: v1
+metadata:
+  name: leak-service
+spec:
+  selector:
+    app: leak
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8888
