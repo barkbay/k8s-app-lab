@@ -23,3 +23,5 @@ spec:
         securityContext: {}
         ports:
         - containerPort: 8888
+      nodeSelector:
+        kubernetes.io/hostname: node-01

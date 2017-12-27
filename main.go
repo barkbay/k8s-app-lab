@@ -38,7 +38,7 @@ func main() {
 		}
 	}
 
-	log.Println("Starting leak application...")
+	log.Println("Starting lab application...")
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Leak memory application, use /leak?size={bytes}\n")
