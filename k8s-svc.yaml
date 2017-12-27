@@ -3,10 +3,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: leak-service
+  name: lab-service
 spec:
   selector:
-    app: leak
+    app: lab
   ports:
   - protocol: TCP
     port: 80
