@@ -1,0 +1,29 @@
+# kubectl create namespace lab
+# kubectl create -f k8s-deployment.yaml -n lab
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: lab-java-deployment
+  labels:
+    app: lab-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lab-java
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+      labels:
+        app: lab-java
+    spec:
+      securityContext: {}
+      containers:
+      - name: lab
+        image: 192.168.56.1:5000/barkbay/k8s-app-lab:java-v0
+        securityContext: {}
+        ports:
+        - containerPort: 8080
+      nodeSelector:
+        kubernetes.io/hostname: node-01
