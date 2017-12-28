@@ -19,7 +19,7 @@ spec:
       securityContext: {}
       containers:
       - name: lab
-        image: 192.168.56.1:5000/barkbay/k8s-app-lab:v0
+        image: 192.168.56.1:5000/barkbay/k8s-app-lab:v1
         securityContext: {}
         ports:
         - containerPort: 8888
