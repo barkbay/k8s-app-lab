@@ -1,5 +1,4 @@
-# kubectl create namespace lab
-# kubectl create -f k8s-deployment.yaml -n lab
+# kubectl apply -f k8s-deployment.yaml -n lab
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -18,12 +17,16 @@ spec:
       labels:
         app: lab-java
     spec:
-      securityContext: {}
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 1000
+        fsGroup: 2000
       containers:
       - name: lab
-        image: 192.168.56.1:5000/barkbay/k8s-app-lab:java-v0 # latest is not a version
-        securityContext: {}
+        image: 192.168.56.1:5000/barkbay/k8s-app-lab:java-v0
+        securityContext:
+          allowPrivilegeEscalation: false
         ports:
         - containerPort: 8080
       nodeSelector:
-        kubernetes.io/hostname: node-01 # TODO : mettre le nodeSelector sur le namespace
+        kubernetes.io/hostname: node-01
