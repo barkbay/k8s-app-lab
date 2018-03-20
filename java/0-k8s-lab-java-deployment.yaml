@@ -21,9 +21,8 @@ spec:
       securityContext: {}
       containers:
       - name: lab
+        imagePullPolicy: Always
         image: 192.168.56.1:5000/barkbay/k8s-app-lab:java-v0 # latest is not a version
         securityContext: {}
         ports:
         - containerPort: 8080
-      nodeSelector:
-        kubernetes.io/hostname: node-01 # TODO : mettre le nodeSelector sur le namespace

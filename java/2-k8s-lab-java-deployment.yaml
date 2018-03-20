@@ -19,21 +19,23 @@ spec:
     spec:
       securityContext:
         runAsNonRoot: false
-        runAsUser: 1000
+        runAsUser: 1234
         fsGroup: 2000
       containers:
       - name: lab
         image: 192.168.56.1:5000/barkbay/k8s-app-lab:java-v0
+        imagePullPolicy: Always
+        env:
+        - name: JAVA_OPTS
+          value: "-XX:+PrintFlagsFinal"
         resources:
           requests:
             memory: "128Mi"
             cpu: "500m"
           limits:
-            memory: "192Mi"
-            cpu: "1"
+            memory: "384Mi"
+            cpu: "2"
         securityContext:
           allowPrivilegeEscalation: false
         ports:
         - containerPort: 8080
-      nodeSelector:
-        kubernetes.io/hostname: node-01
