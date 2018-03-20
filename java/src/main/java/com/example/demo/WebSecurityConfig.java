@@ -12,7 +12,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http
 	            .authorizeRequests()
-	                .antMatchers("/", "/metrics", "/autoleak", "/hello", "/leak" ,"/ready", "/healthz").permitAll()
+	                .antMatchers("/", "/metrics", "/autoleak", "/hello",
+							      "/leak" ,"/ready", "/healthz",
+                                 "/memory", "/cpu", "/threads", "/memory").permitAll()
 	                .anyRequest().authenticated();
 	    }
 }
