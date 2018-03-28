@@ -11,3 +11,19 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: lab-java
+  namespace: lab
+spec:
+  rules:
+  - host: lab.minikube
+    http:
+      paths:
+      - backend:
+          serviceName: lab-java-service
+          servicePort: 80
