@@ -1,0 +1,20 @@
+kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v2beta1
+metadata:
+  name: hpa-lab
+  namespace: lab
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: lab-java-deployment
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+  - type: Object
+    object:
+      target:
+        kind: Service
+        name: lab-java-service
+      metricName: endpoint_hello_total
+      targetValue: 0.5

@@ -3,6 +3,7 @@ apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: lab-java-deployment
+  namespace: lab
   labels:
     app: lab-java
 spec:
@@ -27,7 +28,10 @@ spec:
         imagePullPolicy: Always
         env:
         - name: JAVA_OPTS
-          value: "-XX:+PrintFlagsFinal"
+          value: >
+                 -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+                 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2
+                 -Djava.util.concurrent.ForkJoinPool.common.parallelism=3
         resources:
           requests:
             memory: "128Mi"
