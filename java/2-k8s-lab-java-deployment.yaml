@@ -39,6 +39,19 @@ spec:
           limits:
             memory: "384Mi"
             cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /hello
+            port: 8080
+          failureThreshold: 30
+          initialDelaySeconds: 120
+        readinessProbe:
+          httpGet:
+            path: /hello
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          failureThreshold: 60
         securityContext:
           allowPrivilegeEscalation: false
         ports:
