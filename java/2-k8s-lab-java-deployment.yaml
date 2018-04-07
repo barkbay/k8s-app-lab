@@ -31,14 +31,14 @@ spec:
           value: >
                  -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
                  -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2
-                 -Djava.util.concurrent.ForkJoinPool.common.parallelism=3
+                 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2
         resources:
           requests:
             memory: "128Mi"
             cpu: "500m"
           limits:
             memory: "384Mi"
-            cpu: "2"
+            cpu: "500m"
         securityContext:
           allowPrivilegeEscalation: false
         ports:

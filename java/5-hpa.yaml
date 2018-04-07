@@ -16,5 +16,5 @@ spec:
       target:
         kind: Service
         name: lab-java-service
-      metricName: endpoint_hello_total
-      targetValue: 0.5
+      metricName: endpoint_hello
+      targetValue: 100000m
