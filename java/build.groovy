@@ -22,7 +22,7 @@ node {
                 openshiftBuild apiURL: '', authToken: '', bldCfg: "${builder}", buildName: '', checkForTriggeredDeployments: 'false', showBuildLogs: 'true', verbose: 'false', waitTime: '', waitUnit: 'sec', env: [[name: 'JENKINS_TOKEN', value: "${token}"], [name: 'JENKINS_NAMESPACE', value: "${jenkins_namespace}"], [name: 'WORKSPACE', value: "${workspace}"]]
             } finally {
                 archive "target/**/*"
-                junit 'target/surefire-reports/*.xml'
+                junit '**/target/surefire-reports/*.xml'
             }  
         }
         
@@ -49,6 +49,11 @@ node {
                 }
             }
         }
+ 
+        stage('Wait for deployment') {
+            openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: "${dcName}", namespace: '', replicaCount: '', verbose: 'false', verifyReplicaCount: 'true', waitTime: '', waitUnit: 'sec'
+        }
+
         currentBuild.result = 'SUCCESS'
     } catch (any) {
         currentBuild.result = 'FAILURE'
@@ -56,11 +61,17 @@ node {
     } finally {
 
         mail (
-            from: 'jenkins@mycompany.com',
-            to: 'dev@mycompany.com',
+            from: 'jenkins@acme.com',
+            to: 'dev@acme.fr',
             subject: "'${currentBuild.result}' Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
             body: """Check console output at "${env.BUILD_URL}" """
         )
 
+        def currentResult = currentBuild.result ?: 'SUCCESS'
+        if (currentResult == 'UNSTABLE') {
+            echo 'This will run only if the run was marked as unstable'
+        }
+
+        echo 'End of pipeline'
     }
 }
