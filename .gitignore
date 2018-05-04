@@ -179,4 +179,5 @@ buildNumber.properties
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 
+*.iml
 # End of https://www.gitignore.io/api/go,java,maven,eclipse,intellij
