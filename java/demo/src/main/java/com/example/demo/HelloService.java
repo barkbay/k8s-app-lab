@@ -15,7 +15,7 @@ public class HelloService {
 	private static final String template = "Hello, %s!";
 	
 	private static final Counter myCounter = Counter.build()
-	        .name("CounterName")
+	        .name("endpoint_hello_total")
 	        .labelNames("status")
 	        .help("Counter desc").register();
 
